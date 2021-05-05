@@ -1,12 +1,18 @@
-[![Circle CI](https://circleci.com/gh/jshimko/meteor-launchpad/tree/master.svg?style=svg)](https://circleci.com/gh/jshimko/meteor-launchpad/tree/master)
+[![Circle CI](https://circleci.com/gh/jshimko/meteor-launchpad/tree/master.svg?style=svg)](https://circleci.com/gh/PawlowskiAdrian/meteor-launchpad/tree/master)
 # Meteor Launchpad - Base Docker Image for Meteor Apps
 
 ### Build
 
 Add the following to a `Dockerfile` in the root of your app:
 
+Stable versions are tagged:
 ```Dockerfile
-FROM jshimko/meteor-launchpad:latest
+FROM pawlowskiadrian/meteor-launchpad:v2.4.1
+```
+
+Unstable versions are latest:
+```Dockerfile
+FROM pawlowskiadrian/meteor-launchpad:latest
 ```
 
 Then you can build the image with:
@@ -55,7 +61,7 @@ docker run -d \
 
 ### Build Options
 
-Meteor Launchpad supports setting custom build options in one of two ways.  You can either create a launchpad.conf config file in the root of your app or you can use [Docker build args](https://docs.docker.com/engine/reference/builder/#arg).  The currently supported options are to install PhantomJS, GraphicsMagick, MongoDB, or any list of `apt-get` dependencies (Meteor Launchpad is built on `debian:jesse`).  
+Meteor Launchpad supports setting custom build options in one of two ways.  You can either create a launchpad.conf config file in the root of your app or you can use [Docker build args](https://docs.docker.com/engine/reference/builder/#arg).  The currently supported options are to install PhantomJS, GraphicsMagick, MongoDB, or any list of `apt-get` dependencies (Meteor Launchpad is built on `debian:stable`).  
 
 If you choose to install Mongo, you can use it by _not_ supplying a `MONGO_URL` when you run your app container.  The startup script will then start Mongo inside the container and tell your app to use it.  If you _do_ supply a `MONGO_URL`, Mongo will not be started inside the container and the external database will be used instead.
 
@@ -75,13 +81,16 @@ To use any of them, create a `launchpad.conf` in the root of your app and add an
 # (default: undefined)
 APT_GET_INSTALL="curl git wget"
 
-# Install a custom Node version (default: latest 8.x)
-NODE_VERSION=8.9.0
+# Install a custom Node version (default: latest 14.x)
+NODE_VERSION=14.17.5
 
 # Installs the latest version of each (default: all false)
 INSTALL_MONGO=true
 INSTALL_PHANTOMJS=true
 INSTALL_GRAPHICSMAGICK=true
+
+# Sets specific Meteor version to use
+METEOR_VERSION_CUSTOM=2.3.5
 ```
 
 **Option #2 - Docker Build Args**
@@ -92,7 +101,7 @@ If you prefer not to have a config file in your project, your other option is to
 docker build \
   --build-arg APT_GET_INSTALL="curl git wget" \
   --build-arg INSTALL_MONGO=true \
-  --build-arg NODE_VERSION=8.9.0 \
+  --build-arg NODE_VERSION=14.17.5 \
   -t myorg/myapp:latest .
 ```
 
@@ -104,12 +113,12 @@ You can provide your [NPM auth token](http://blog.npmjs.org/post/118393368555/de
 docker build --build-arg NPM_TOKEN="<your token>" -t myorg/myapp:latest .
 ```
 
-## Development Builds
+## Development Builds - 
 
 You can optionally avoid downloading Meteor every time when building regularly in development.  Add the following to your Dockerfile instead...
 
 ```Dockerfile
-FROM jshimko/meteor-launchpad:devbuild
+FROM pawlowskiadrian/meteor-launchpad:devbuild
 ```
 
 This isn't recommended for your final production build because it creates a much larger image, but it's a bit of a time saver when you're building often in development.  The first build you run will download/install Meteor and then every subsequent build will be able to skip that step and just build the app.
@@ -164,15 +173,18 @@ If you'd like to create a custom build for some reason, you can use the `build.s
 First, make any changes you want, then to create your custom build:
 
 ```sh
-# builds as jshimko/meteor-launchpad:latest
+# builds as pawlowskiadrian/meteor-launchpad:latest
 ./build.sh
 ```
+
+You can also run docker container and manually experimenting with installation process:
+`docker run -it debian:jessie /bin/bash`
 
 ## License
 
 MIT License
 
-Copyright (c) 2017 Jeremy Shimko
+Copyright (c) 2017 Jeremy Shimko, 2021 Adrian Pawłowski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

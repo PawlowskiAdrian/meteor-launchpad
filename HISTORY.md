@@ -1,3 +1,17 @@
+## TODO:
+- custom user with Sudo and Staff access
+- check for custom user behaves with launchpad -> if good: enable it
+
+## v2.4.1
+- Added to `launchpad.conf`:
+- - `METEOR_VERSION_CUSTOM` for specific Meteor version installation
+
+## v2.4.0
+
+- Updates for Meteor 2.2 support
+- Node 12.22.1
+- Mongo 4.4.5
+
 ## v2.3.0
 
 - Updates for Meteor 1.6 support
