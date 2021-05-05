@@ -18,10 +18,9 @@ if [[ "$CIRCLE_BRANCH" == "master" ]]; then
 
   # login to Docker Hub
   docker login -u $DOCKER_USER -p $DOCKER_PASS
-  if [[ "$VERSION" ]]; then
-    set -e
+  IMAGE_NAME=${DOCKER_IMAGE_NAME:-"pawlowskiadrian/meteor-launchpad"}
 
-    IMAGE_NAME=${DOCKER_IMAGE_NAME:-"pawlowskiadrian/meteor-launchpad"}
+  if [[ "$VERSION" ]]; then
 
     # create a versioned tags
     docker tag $IMAGE_NAME:devbuild $IMAGE_NAME:$VERSION-devbuild
