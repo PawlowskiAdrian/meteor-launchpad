@@ -104,7 +104,7 @@ You can provide your [NPM auth token](http://blog.npmjs.org/post/118393368555/de
 docker build --build-arg NPM_TOKEN="<your token>" -t myorg/myapp:latest .
 ```
 
-<!-- ## Development Builds - 
+## Development Builds - 
 
 You can optionally avoid downloading Meteor every time when building regularly in development.  Add the following to your Dockerfile instead...
 
@@ -112,7 +112,7 @@ You can optionally avoid downloading Meteor every time when building regularly i
 FROM pawlowskiadrian/meteor-launchpad:devbuild
 ```
 
-This isn't recommended for your final production build because it creates a much larger image, but it's a bit of a time saver when you're building often in development.  The first build you run will download/install Meteor and then every subsequent build will be able to skip that step and just build the app. -->
+This isn't recommended for your final production build because it creates a much larger image, but it's a bit of a time saver when you're building often in development.  The first build you run will download/install Meteor and then every subsequent build will be able to skip that step and just build the app.
 
 ## Meteor.settings
 
