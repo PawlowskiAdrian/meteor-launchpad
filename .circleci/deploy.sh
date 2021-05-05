@@ -16,6 +16,8 @@ if [[ "$CIRCLE_BRANCH" == "master" ]]; then
   # check if we're on a version tagged commit
   VERSION=$(git describe --tags | grep "^v[0-9]\+\.[0-9]\+\.[0-9]\+$")
 
+  # login to Docker Hub
+  docker login -u $DOCKER_USER -p $DOCKER_PASS
   if [[ "$VERSION" ]]; then
     set -e
 
@@ -25,16 +27,13 @@ if [[ "$CIRCLE_BRANCH" == "master" ]]; then
     docker tag $IMAGE_NAME:devbuild $IMAGE_NAME:$VERSION-devbuild
     docker tag $IMAGE_NAME:latest $IMAGE_NAME:$VERSION
 
-    # login to Docker Hub
-    docker login -u $DOCKER_USER -p $DOCKER_PASS
-
-    # push the builds
+    # push the builds with version TAG
     docker push $IMAGE_NAME:$VERSION-devbuild
-    docker push $IMAGE_NAME:devbuild
     docker push $IMAGE_NAME:$VERSION
-    docker push $IMAGE_NAME:latest
   else
-    echo "On a deployment branch, but no version tag was found. Skipping image deployment."
+    docker push $IMAGE_NAME:devbuild
+    docker push $IMAGE_NAME:latest
+    echo "On a deployment branch, but no version tag was found. Deployed latest, devbuild with no version."
   fi
 else
   echo "Not in a deployment branch. Skipping image deployment."
