@@ -164,7 +164,7 @@ If you'd like to create a custom build for some reason, you can use the `build.s
 First, make any changes you want, then to create your custom build:
 
 ```sh
-# builds as jshimko/meteor-launchpad:latest
+# builds as pawlowskiadrian/meteor-launchpad:latest
 ./build.sh
 ```
 
