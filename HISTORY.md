@@ -1,3 +1,9 @@
+## v2.4.0
+
+- Updates for Meteor 2.2 support
+- Node 14.16.1
+- Mongo 4.4.5
+
 ## v2.3.0
 
 - Updates for Meteor 1.6 support

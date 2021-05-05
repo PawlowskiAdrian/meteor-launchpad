@@ -6,7 +6,7 @@
 Add the following to a `Dockerfile` in the root of your app:
 
 ```Dockerfile
-FROM jshimko/meteor-launchpad:latest
+FROM pawlowskiadrian/meteor-launchpad:latest
 ```
 
 Then you can build the image with:
@@ -75,8 +75,8 @@ To use any of them, create a `launchpad.conf` in the root of your app and add an
 # (default: undefined)
 APT_GET_INSTALL="curl git wget"
 
-# Install a custom Node version (default: latest 8.x)
-NODE_VERSION=8.9.0
+# Install a custom Node version (default: latest 14.x)
+NODE_VERSION=14.16.1
 
 # Installs the latest version of each (default: all false)
 INSTALL_MONGO=true
@@ -92,7 +92,7 @@ If you prefer not to have a config file in your project, your other option is to
 docker build \
   --build-arg APT_GET_INSTALL="curl git wget" \
   --build-arg INSTALL_MONGO=true \
-  --build-arg NODE_VERSION=8.9.0 \
+  --build-arg NODE_VERSION=14.16.1 \
   -t myorg/myapp:latest .
 ```
 
@@ -104,15 +104,15 @@ You can provide your [NPM auth token](http://blog.npmjs.org/post/118393368555/de
 docker build --build-arg NPM_TOKEN="<your token>" -t myorg/myapp:latest .
 ```
 
-## Development Builds
+<!-- ## Development Builds - 
 
 You can optionally avoid downloading Meteor every time when building regularly in development.  Add the following to your Dockerfile instead...
 
 ```Dockerfile
-FROM jshimko/meteor-launchpad:devbuild
+FROM pawlowskiadrian/meteor-launchpad:devbuild
 ```
 
-This isn't recommended for your final production build because it creates a much larger image, but it's a bit of a time saver when you're building often in development.  The first build you run will download/install Meteor and then every subsequent build will be able to skip that step and just build the app.
+This isn't recommended for your final production build because it creates a much larger image, but it's a bit of a time saver when you're building often in development.  The first build you run will download/install Meteor and then every subsequent build will be able to skip that step and just build the app. -->
 
 ## Meteor.settings
 
@@ -172,7 +172,7 @@ First, make any changes you want, then to create your custom build:
 
 MIT License
 
-Copyright (c) 2017 Jeremy Shimko
+Copyright (c) 2017 Jeremy Shimko, 2021 Adrian Pawłowski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -19,18 +19,18 @@ if [[ "$CIRCLE_BRANCH" == "master" ]]; then
   if [[ "$VERSION" ]]; then
     set -e
 
-    IMAGE_NAME=${DOCKER_IMAGE_NAME:-"jshimko/meteor-launchpad"}
+    IMAGE_NAME=${DOCKER_IMAGE_NAME:-"pawlowskiadrian/meteor-launchpad"}
 
     # create a versioned tags
-    docker tag $IMAGE_NAME:devbuild $IMAGE_NAME:$VERSION-devbuild
+    # docker tag $IMAGE_NAME:devbuild $IMAGE_NAME:$VERSION-devbuild
     docker tag $IMAGE_NAME:latest $IMAGE_NAME:$VERSION
 
     # login to Docker Hub
     docker login -u $DOCKER_USER -p $DOCKER_PASS
 
     # push the builds
-    docker push $IMAGE_NAME:$VERSION-devbuild
-    docker push $IMAGE_NAME:devbuild
+    # docker push $IMAGE_NAME:$VERSION-devbuild
+    # docker push $IMAGE_NAME:devbuild
     docker push $IMAGE_NAME:$VERSION
     docker push $IMAGE_NAME:latest
   else
