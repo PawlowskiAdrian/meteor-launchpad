@@ -42,7 +42,6 @@ fi
 if [[ "$CIRCLE_BRANCH" == "dev" ]]; then
   # build the latest
   echo "Development branch, pushing :devbuild only."
-  docker build -f dev.dockerfile -t $IMAGE_NAME:devbuild .
 
   # login to Docker Hub
   docker login -u $DOCKER_USER -p $DOCKER_PASS
