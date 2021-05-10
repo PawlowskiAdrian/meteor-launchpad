@@ -11,8 +11,8 @@ if [ "$INSTALL_PHANTOMJS" = true ]; then
   printf "\n[-] Installing Phantom.js...\n\n"
 
   PHANTOM_JS="phantomjs-$PHANTOM_VERSION-linux-x86_64"
-
-  sudo apt-get install -y wget chrpath libssl-dev libxft-dev
+  apt-get update
+  apt-get install -y wget chrpath libssl-dev libxft-dev
 
   cd /tmp
   wget https://github.com/Medium/phantomjs/releases/download/v$PHANTOM_VERSION/$PHANTOM_JS.tar.bz2
@@ -22,5 +22,5 @@ if [ "$INSTALL_PHANTOMJS" = true ]; then
   ln -sf /usr/local/share/"$PHANTOM_JS"/bin/phantomjs /usr/local/bin/phantomjs
   ln -sf /usr/local/share/"$PHANTOM_JS"/bin/phantomjs /usr/bin/phantomjs
 
-  sudo apt-get -y purge wget
+  apt-get -y purge wget
 fi
