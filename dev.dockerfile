@@ -54,7 +54,7 @@ ONBUILD ENV INSTALL_GRAPHICSMAGICK ${INSTALL_GRAPHICSMAGICK:-true}
 ONBUILD RUN if [ "$APT_GET_INSTALL" ]; then apt-get update && apt-get install -y $APT_GET_INSTALL; fi
 
 # install base dependencies, build app, cleanup
-RUN bash $BUILD_SCRIPTS_DIR/install-deps.sh && \
+ONBUILD RUN bash $BUILD_SCRIPTS_DIR/install-deps.sh && \
 		bash $BUILD_SCRIPTS_DIR/post-install-cleanup.sh
 
 # optionally install Mongo or Phantom at app build time

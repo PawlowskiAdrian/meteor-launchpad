@@ -3,6 +3,10 @@
 set -e
 TMP_DIR=/tmp
 
+if [ -f $APP_SOURCE_DIR/launchpad.conf ]; then
+  source <(grep METEOR_VERSION_CUSTOM $APP_SOURCE_DIR/launchpad.conf)
+fi
+
 if [ "$DEV_BUILD" = true ]; then
   # if this is a devbuild, we don't have an app to check the .meteor/release file yet,
   # so just install the latest version of Meteor
