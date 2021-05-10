@@ -17,7 +17,7 @@ fi
 # Set a delay to wait to start the Node process
 if [[ $STARTUP_DELAY ]]; then
   echo "Delaying startup for $STARTUP_DELAY seconds..."
-  sleep $STARTUP_DELAY
+  sleep "$STARTUP_DELAY"
 fi
 
 if [ "${1:0:1}" = '-' ]; then

@@ -5,6 +5,12 @@
 
 Add the following to a `Dockerfile` in the root of your app:
 
+Stable versions are tagged:
+```Dockerfile
+FROM pawlowskiadrian/meteor-launchpad:v2.4.0
+```
+
+Unstable versions are latest:
 ```Dockerfile
 FROM pawlowskiadrian/meteor-launchpad:latest
 ```

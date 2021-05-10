@@ -2,9 +2,9 @@
 
 set -e
 
-if [ -f $APP_SOURCE_DIR/launchpad.conf ]; then
-  source <(grep INSTALL_PHANTOMJS $APP_SOURCE_DIR/launchpad.conf)
-  source <(grep PHANTOM_VERSION $APP_SOURCE_DIR/launchpad.conf)
+if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
+  source <(grep INSTALL_PHANTOMJS "$APP_SOURCE_DIR"/launchpad.conf)
+  source <(grep PHANTOM_VERSION "$APP_SOURCE_DIR"/launchpad.conf)
 fi
 
 if [ "$INSTALL_PHANTOMJS" = true ]; then
@@ -16,11 +16,11 @@ if [ "$INSTALL_PHANTOMJS" = true ]; then
 
   cd /tmp
   wget https://github.com/Medium/phantomjs/releases/download/v$PHANTOM_VERSION/$PHANTOM_JS.tar.bz2
-  tar xvjf $PHANTOM_JS.tar.bz2
-  mv $PHANTOM_JS /usr/local/share
-  ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/share/phantomjs
-  ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin/phantomjs
-  ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/bin/phantomjs
+  tar xvjf "$PHANTOM_JS".tar.bz2
+  mv "$PHANTOM_JS" /usr/local/share
+  ln -sf /usr/local/share/"$PHANTOM_JS"/bin/phantomjs /usr/local/share/phantomjs
+  ln -sf /usr/local/share/"$PHANTOM_JS"/bin/phantomjs /usr/local/bin/phantomjs
+  ln -sf /usr/local/share/"$PHANTOM_JS"/bin/phantomjs /usr/bin/phantomjs
 
   sudo apt-get -y purge wget
 fi

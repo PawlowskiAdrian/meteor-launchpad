@@ -18,21 +18,21 @@ VERSION=$(git describe --tags | grep "^v[0-9]\+\.[0-9]\+\.[0-9]\+$")
 if [[ "$CIRCLE_BRANCH" == "master" ]]; then
 
   # login to Docker Hub
-  docker login -u $DOCKER_USER -p $DOCKER_PASS
+  docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
   IMAGE_NAME=${DOCKER_IMAGE_NAME:-"pawlowskiadrian/meteor-launchpad"}
 
   if [[ "$VERSION" ]]; then
 
     # create a versioned tags
-    docker tag $IMAGE_NAME:devbuild $IMAGE_NAME:$VERSION-devbuild
-    docker tag $IMAGE_NAME:latest $IMAGE_NAME:$VERSION
+    docker tag "$IMAGE_NAME":devbuild "$IMAGE_NAME":"$VERSION"-devbuild
+    docker tag "$IMAGE_NAME":latest "$IMAGE_NAME":"$VERSION"
 
     # push the builds with version TAG
-    docker push $IMAGE_NAME:$VERSION-devbuild
-    docker push $IMAGE_NAME:$VERSION
+    docker push "$IMAGE_NAME":"$VERSION"-devbuild
+    docker push "$IMAGE_NAME":"$VERSION"
   else
-    docker push $IMAGE_NAME:devbuild
-    docker push $IMAGE_NAME:latest
+    docker push "$IMAGE_NAME":devbuild
+    docker push "$IMAGE_NAME":latest
     echo "On a deployment branch, but no version tag was found. Deployed latest, devbuild with no tagged version."
   fi
 else
@@ -44,18 +44,18 @@ if [[ "$CIRCLE_BRANCH" == "dev" ]]; then
   echo "Development branch, pushing :devbuild only."
 
   # login to Docker Hub
-  docker login -u $DOCKER_USER -p $DOCKER_PASS
+  docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
   IMAGE_NAME=${DOCKER_IMAGE_NAME:-"pawlowskiadrian/meteor-launchpad"}
 
   if [[ "$VERSION" ]]; then
 
     # create a versioned tags
-    docker tag $IMAGE_NAME:devbuild $IMAGE_NAME:$VERSION-devbuild
+    docker tag "$IMAGE_NAME":devbuild "$IMAGE_NAME":"$VERSION"-devbuild
 
     # push the builds with version TAG
-    docker push $IMAGE_NAME:$VERSION-devbuild
+    docker push "$IMAGE_NAME":"$VERSION"-devbuild
   else
-    docker push $IMAGE_NAME:devbuild
+    docker push "$IMAGE_NAME":devbuild
     echo "On a deployment branch, but no version tag was found. Deployed devbuild with no tagged version."
   fi
 fi
