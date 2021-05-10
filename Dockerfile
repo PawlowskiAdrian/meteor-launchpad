@@ -19,6 +19,10 @@ ENV APP_SOURCE_DIR /opt/meteor/src
 ENV APP_BUNDLE_DIR /opt/meteor/dist
 ENV BUILD_SCRIPTS_DIR /opt/build_scripts
 
+# Add entrypoint and build scripts
+COPY scripts $BUILD_SCRIPTS_DIR
+RUN chmod -R 750 $BUILD_SCRIPTS_DIR
+
 # Define all --build-arg options
 ONBUILD ARG APT_GET_INSTALL
 ONBUILD ENV APT_GET_INSTALL $APT_GET_INSTALL
@@ -56,10 +60,6 @@ ONBUILD RUN cd $APP_SOURCE_DIR && \
   $BUILD_SCRIPTS_DIR/install-graphicsmagick.sh && \
   $BUILD_SCRIPTS_DIR/add-user.sh && \
   $BUILD_SCRIPTS_DIR/switch-user.sh
-
-# Add entrypoint and build scripts
-COPY scripts $BUILD_SCRIPTS_DIR
-RUN chmod -R 750 $BUILD_SCRIPTS_DIR
 
 # install mongo, node, meteor binaries
 ONBUILD RUN cd $APP_SOURCE_DIR && \
