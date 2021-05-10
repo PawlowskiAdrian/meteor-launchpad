@@ -5,6 +5,7 @@ if [ -f $APP_SOURCE_DIR/launchpad.conf ]; then
 fi
 
 if [ $USERNAME_CUSTOM_NAME ]; then
+    printf "\n[-] Adding custom user...\n\n"
     if [ $(id -u) -eq 0 ]; then
         egrep "^$USERNAME_CUSTOM_NAME" /etc/passwd >/dev/null
         if [ $? -eq 0 ]; then
