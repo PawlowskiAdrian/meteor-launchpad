@@ -6,7 +6,7 @@ if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
   source <(grep USERNAME_CUSTOM_NAME "$APP_SOURCE_DIR"/launchpad.conf)
 fi
 
-if [ "$USERNAME_CUSTOM_NAME" != "root" ]; then
+if [ "$USERNAME_CUSTOM_NAME" ]; then
     printf "\n[-] Adding custom user: %s...\n\n" "$USERNAME_CUSTOM_NAME"
     if [ "$(id -u)" -eq 0 ]; then
         if grep -E "^$USERNAME_CUSTOM_NAME" /etc/passwd >/dev/null;
@@ -20,6 +20,7 @@ if [ "$USERNAME_CUSTOM_NAME" != "root" ]; then
             pass=$(perl -e 'print crypt($ARGV[0],"passwordSecret")' "$USERNAME_CUSTOM_PASS")
             if useradd -m -p "$pass" "$USERNAME_CUSTOM_NAME";
             then
+                usermod -aG "$USERNAME_CUSTOM_NAME" "$USERNAME_CUSTOM_NAME"
                 printf "[INFO] User: %s, has been added to system.\n" "$USERNAME_CUSTOM_NAME"
             else
                 printf "[ERROR] Failed to add a user!\nExiting..."

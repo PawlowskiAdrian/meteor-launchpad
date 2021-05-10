@@ -9,7 +9,7 @@ if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
 fi
 # get out of the src dir, so we can delete it
 cd "$APP_BUNDLE_DIR"
-if [ "$USERNAME_CUSTOM_NAME" != "root" ]; then
+if [ "$USERNAME_CUSTOM_NAME" ]; then
     # Clean out docs
     echo "$USERNAME_CUSTOM_PASS" | sudo -S rm -rf /usr/share/{doc,doc-base,man,locale,zoneinfo}
 
