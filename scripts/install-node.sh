@@ -14,8 +14,14 @@ cd /tmp
 curl -v -O -L http://nodejs.org/dist/v${NODE_VERSION}/${NODE_DIST}.tar.gz
 tar xvzf ${NODE_DIST}.tar.gz
 rm ${NODE_DIST}.tar.gz
-rm -rf /opt/nodejs
-mv ${NODE_DIST} /opt/nodejs
-
-ln -sf /opt/nodejs/bin/node /usr/bin/node
-ln -sf /opt/nodejs/bin/npm /usr/bin/npm
+if [ $USERNAME_CUSTOM_NAME ]; then
+  echo $USERNAME_CUSTOM_PASS | sudo -S rm -rf /opt/nodejs
+  echo $USERNAME_CUSTOM_PASS | sudo -S mv ${NODE_DIST} /opt/nodejs
+  echo $USERNAME_CUSTOM_PASS | sudo -S ln -sf /opt/nodejs/bin/node /usr/bin/node
+  echo $USERNAME_CUSTOM_PASS | sudo -S ln -sf /opt/nodejs/bin/npm /usr/bin/npm
+else
+  rm -rf /opt/nodejs
+  mv ${NODE_DIST} /opt/nodejs
+  ln -sf /opt/nodejs/bin/node /usr/bin/node
+  ln -sf /opt/nodejs/bin/npm /usr/bin/npm
+fi

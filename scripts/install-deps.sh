@@ -23,7 +23,6 @@ fi
 
 apt-get install -y --no-install-recommends curl bzip2 bsdtar build-essential python git wget
 
-
 # install gosu
 
 dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"
@@ -43,3 +42,6 @@ chmod +x /usr/local/bin/gosu
 gosu nobody true
 
 apt-get purge -y --auto-remove wget
+
+# install sudo (we will use separate user)
+apt-get install -y sudo

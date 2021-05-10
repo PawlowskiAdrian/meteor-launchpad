@@ -5,6 +5,9 @@ RUN groupadd -r node && useradd -m -g node node
 
 ENV DEV_BUILD true
 
+# Customer user with sudo access
+ENV USERNAME_CUSTOM_NAME debian
+
 # Gosu
 ENV GOSU_VERSION 1.10
 
@@ -25,16 +28,18 @@ ENV BUILD_SCRIPTS_DIR /opt/build_scripts
 COPY scripts $BUILD_SCRIPTS_DIR
 RUN chmod -R 750 $BUILD_SCRIPTS_DIR
 
-# install base dependencies, build app, cleanup
-RUN bash $BUILD_SCRIPTS_DIR/install-deps.sh && \
-		bash $BUILD_SCRIPTS_DIR/post-install-cleanup.sh
-
 # define all --build-arg options
 ONBUILD ARG APT_GET_INSTALL
 ONBUILD ENV APT_GET_INSTALL $APT_GET_INSTALL
 
+ONBUILD ARG METEOR_VERSION_CUSTOM
+ONBUILD ENV METEOR_VERSION_CUSTOM $METEOR_VERSION_CUSTOM
+
 ONBUILD ARG NODE_VERSION
 ONBUILD ENV NODE_VERSION ${NODE_VERSION:-14.16.1}
+
+ONBUILD ARG NPM_TOKEN
+ONBUILD ENV NPM_TOKEN $NPM_TOKEN
 
 ONBUILD ARG INSTALL_MONGO
 ONBUILD ENV INSTALL_MONGO ${INSTALL_MONGO:-true}
@@ -47,6 +52,10 @@ ONBUILD ENV INSTALL_GRAPHICSMAGICK ${INSTALL_GRAPHICSMAGICK:-true}
 
 # optionally custom apt dependencies at app build time
 ONBUILD RUN if [ "$APT_GET_INSTALL" ]; then apt-get update && apt-get install -y $APT_GET_INSTALL; fi
+
+# install base dependencies, build app, cleanup
+RUN bash $BUILD_SCRIPTS_DIR/install-deps.sh && \
+		bash $BUILD_SCRIPTS_DIR/post-install-cleanup.sh
 
 # optionally install Mongo or Phantom at app build time
 ONBUILD RUN bash $BUILD_SCRIPTS_DIR/install-phantom.sh

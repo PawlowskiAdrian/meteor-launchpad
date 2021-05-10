@@ -168,6 +168,9 @@ First, make any changes you want, then to create your custom build:
 ./build.sh
 ```
 
+You can also run docker container and manually experimenting with installation process:
+`docker run -it debian:jessie /bin/bash`
+
 ## License
 
 MIT License
