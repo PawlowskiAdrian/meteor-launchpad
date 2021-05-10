@@ -4,12 +4,14 @@ set -e
 
 if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
   source <(grep INSTALL_MONGO $APP_SOURCE_DIR/launchpad.conf)
+  source <(grep USERNAME_CUSTOM_PASS "$APP_SOURCE_DIR"/launchpad.conf)
+  source <(grep USERNAME_CUSTOM_NAME "$APP_SOURCE_DIR"/launchpad.conf)
 fi
 
 if [ "$INSTALL_MONGO" = true ]; then
   printf "\n[-] Installing MongoDB %s...\n\n" "${MONGO_VERSION}"
 
-	if [ "$USERNAME_CUSTOM_NAME" ]; then
+	if [ "$USERNAME_CUSTOM_NAME" != "root" ]; then
     echo "$USERNAME_CUSTOM_PASS" | sudo -S apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 0C49F3730359A14518585931BC711F9BA15703C6
     echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/$MONGO_MAJOR main" > /etc/apt/sources.list.d/mongodb-org.list
     echo "$USERNAME_CUSTOM_PASS" | sudo -S apt-get install -y \

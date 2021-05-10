@@ -7,6 +7,8 @@ set -e
 
 if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
   source <(grep TOOL_NODE_FLAGS "$APP_SOURCE_DIR"/launchpad.conf)
+  source <(grep USERNAME_CUSTOM_PASS "$APP_SOURCE_DIR"/launchpad.conf)
+  source <(grep USERNAME_CUSTOM_NAME "$APP_SOURCE_DIR"/launchpad.conf)
 fi
 
 # set up npm auth token if one is provided
