@@ -22,6 +22,7 @@ if [ $USERNAME_CUSTOM_NAME ]; then
             useradd -m -p "$pass" "$USERNAME_CUSTOM_NAME"
             if [ $? -eq 0 ] && printf "User: $USERNAME_CUSTOM_NAME, has been added to system." || printf "Failed to add a user!"
             usermod -aG sudo "$USERNAME_CUSTOM_NAME"
+            usermod -aG staff "$USERNAME_CUSTOM_NAME"
             if [ $? -eq 0 ] && printf "User: $USERNAME_CUSTOM_NAME, has been added to sudo group." || printf "Failed to add user to sudoers!"
         fi
     else
