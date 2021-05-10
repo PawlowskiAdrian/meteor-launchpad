@@ -49,9 +49,6 @@ ONBUILD ENV INSTALL_GRAPHICSMAGICK ${INSTALL_GRAPHICSMAGICK:-false}
 ONBUILD ARG TOOL_NODE_FLAGS
 ONBUILD ENV TOOL_NODE_FLAGS $TOOL_NODE_FLAGS
 
-# update debian repo
-ONBUILD RUN apt-get update
-
 # copy the app to the container
 ONBUILD COPY . $APP_SOURCE_DIR
 ONBUILD RUN printf "\n[-] Source files copied to ${APP_SOURCE_DIR}\n\n"
