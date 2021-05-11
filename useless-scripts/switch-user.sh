@@ -8,6 +8,7 @@ fi
 
 if [ "$USERNAME_CUSTOM_NAME" ]; then
     su - "$USERNAME_CUSTOM_NAME"
+    echo "$USERNAME_CUSTOM_PASS" | sudo -S passwd -l root # lock root account: malicious software or actors to compromise the system shield
     printf "[INFO] Proceeding as: %s.\n" "$(whoami)"
     echo "$USERNAME_CUSTOM_PASS" | sudo -S chmod -R 750 "$BUILD_SCRIPTS_DIR"
 else
