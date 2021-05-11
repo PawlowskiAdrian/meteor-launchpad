@@ -45,4 +45,4 @@ gosu nobody true
 apt-get purge -y --auto-remove wget
 
 # install sudo (we will use separate user)
-apt-get install -y sudo
+# apt-get install -y sudo
