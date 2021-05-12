@@ -2,8 +2,8 @@ FROM debian:jessie
 LABEL author="Jeremy Shimko <jeremy.shimko@gmail.com>, Adrian Pawlowski <petroniusz2008@gmail.com>"
 
 RUN groupadd -r node && useradd -m -g node node
-RUN usermod -aG staff node
-RUN usermod -aG node root
+
+ENV METEOR_ALLOW_SUPERUSER true
 
 # Gosu
 ENV GOSU_VERSION 1.10
