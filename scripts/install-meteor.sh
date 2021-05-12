@@ -12,7 +12,8 @@ if [ "$DEV_BUILD" = true ]; then
   # so just install the latest version of Meteor
   if [ "$METEOR_VERSION_CUSTOM" ]; then
     printf "\n[-] Installing Meteor %s...\n\n" "$METEOR_VERSION_CUSTOM"
-    curl -v https://install.meteor.com/ | sh --release "$METEOR_VERSION_CUSTOM"
+    curl -v https://install.meteor.com/ | sh 
+    meteor update --release "$METEOR_VERSION_CUSTOM"
   else
     printf "\n[-] Installing the latest version of Meteor...\n\n"
     curl -v https://install.meteor.com/ | sh
@@ -34,7 +35,8 @@ else
   # install
   if [ "$METEOR_VERSION_CUSTOM" ]; then
     printf "\n[-] Installing Meteor %s...\n\n" "$METEOR_VERSION_CUSTOM"
-    sh $TMP_DIR/install_meteor.sh --release "$METEOR_VERSION_CUSTOM"
+    sh $TMP_DIR/install_meteor.sh
+    meteor update --release "$METEOR_VERSION_CUSTOM"
   else
     printf "\n[-] Installing Meteor %s...\n\n" "$METEOR_VERSION"
     sh $TMP_DIR/install_meteor.sh
