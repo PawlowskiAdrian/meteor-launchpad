@@ -63,10 +63,8 @@ ONBUILD ENV TOOL_NODE_FLAGS $TOOL_NODE_FLAGS
 ONBUILD COPY . $APP_SOURCE_DIR
 ONBUILD RUN printf "\n[-] Source files copied to ${APP_SOURCE_DIR}\n\n"
 
-COPY . $APP_SOURCE_DIR
-RUN printf "\n[-] Lanuchpad files copied to ${APP_SOURCE_DIR}\n\n"
 # install all dependencies, phantom, graphicsmagick
-RUN cd $APP_SOURCE_DIR && \
+ONBUILD RUN cd $APP_SOURCE_DIR && \
   $BUILD_SCRIPTS_DIR/install-deps.sh && \
   $BUILD_SCRIPTS_DIR/post-install-cleanup.sh 
 
