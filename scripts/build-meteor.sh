@@ -25,12 +25,12 @@ cd "$APP_SOURCE_DIR"
 
 # Install app deps
 printf "\n[-] Running 'meteor npm install' in app directory...\n\n"
-chown -Rh "$(whoami)" .meteor/local
 meteor npm install --save
 
 # build the bundle
 printf "\n[-] Building Meteor application...\n\n"
 mkdir -p "$APP_BUNDLE_DIR"
+chown -Rh "$(whoami)" .meteor/local
 meteor build --directory "$APP_BUNDLE_DIR" --server-only
 
 # run npm install in bundle
