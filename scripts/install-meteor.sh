@@ -13,8 +13,8 @@ if [ "$DEV_BUILD" = true ]; then
   if [ "$METEOR_VERSION_CUSTOM" ]; then
     printf "\n[-] Installing Meteor %s...\n\n" "$METEOR_VERSION_CUSTOM"
     curl -v https://install.meteor.com/ | sh 
-    printf "%s" "$(ls -laht ~/.meteor/)"
-    printf "%s" "$(whoami)"
+    printf "Output folder:\n %s" "$(ls -lRaht ~/.meteor/)"
+    printf "User used: %s" "$(whoami)"
     meteor update --release "$METEOR_VERSION_CUSTOM"
   else
     printf "\n[-] Installing the latest version of Meteor...\n\n"
