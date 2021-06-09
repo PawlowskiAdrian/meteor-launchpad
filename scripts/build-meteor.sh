@@ -26,6 +26,8 @@ cd "$APP_SOURCE_DIR"
 # Install app deps
 printf "\n[-] Running 'meteor npm install' in app directory...\n\n"
 meteor npm install --save
+meteor npm uninstall fibers
+meteor npm install fibers --save
 
 # build the bundle
 printf "\n[-] Building Meteor application...\n\n"
