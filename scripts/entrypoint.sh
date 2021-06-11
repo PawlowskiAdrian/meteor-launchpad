@@ -2,10 +2,6 @@
 
 set -e
 
-if [[ "${USERNAME_CUSTOM_NAME}" ]]; then
-  su - "$USERNAME_CUSTOM_NAME"
-  exec gosu "$USERNAME_CUSTOM_NAME" "$@"
-fi
 # try to start local MongoDB if no external MONGO_URL was set
 if [[ "${MONGO_URL}" == *"127.0.0.1"* ]]; then
   if hash mongod 2>/dev/null; then

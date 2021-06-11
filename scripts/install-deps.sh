@@ -22,7 +22,7 @@ if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
 fi
 
 apt-get update
-apt-get install -y --no-install-recommends curl bzip2 bsdtar build-essential python git wget chrpath apt-utils
+apt-get install -y --no-install-recommends curl bzip2 bsdtar build-essential python git wget chrpath apt-utils python3
 
 # install gosu
 
@@ -43,6 +43,3 @@ chmod +x /usr/local/bin/gosu
 gosu nobody true
 
 apt-get purge -y --auto-remove wget
-
-# install sudo (we will use separate user)
-# apt-get install -y sudo

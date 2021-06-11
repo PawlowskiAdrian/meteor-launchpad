@@ -5,8 +5,6 @@
 ## v2.5.0
 - Added to `launchpad.conf`:
 - - `METEOR_VERSION_CUSTOM` for specific Meteor version installation
-<!-- - - `USERNAME_CUSTOM_NAME` for creating non root user with sudo access (and group staff access)
-- - `USERNAME_CUSTOM_PASS` for custom user password -->
 
 ## v2.4.0
 

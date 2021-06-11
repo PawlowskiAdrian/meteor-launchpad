@@ -91,10 +91,6 @@ INSTALL_GRAPHICSMAGICK=true
 
 # Sets specific Meteor version to use
 METEOR_VERSION_CUSTOM=2.2
-
-# Creates custom user for system. User will have access to groups: sudo, staff
-USERNAME_CUSTOM_NAME=debian
-USERNAME_CUSTOM_PASS=password
 ```
 
 **Option #2 - Docker Build Args**

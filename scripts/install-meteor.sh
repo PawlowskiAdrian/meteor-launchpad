@@ -44,3 +44,15 @@ else
     sh $TMP_DIR/install_meteor.sh
   fi
 fi
+
+## fix fibers package errors -> build manually via node-gyp
+# meteor npm install fibers
+# meteor npm install -g node-gyp
+# meteor npm update
+# meteor npm audit fix
+# printf "==========================fibers fix 2 "
+# export PATH=/root/.meteor/packages/meteor-tool/.2.2.0.1j8auib.qcbe++os.linux.x86_64+web.browser+web.browser.legacy+web.cordova/mt-os.linux.x86_64/dev_bundle/bin/:"$PATH"
+# /opt/nodejs/bin/node /opt/meteor/src/node_modules/fibers/build
+# meteor npm prune -g node-gyp
+# printf "==========================fibers fix 3 "
+# meteor npm prune fibers

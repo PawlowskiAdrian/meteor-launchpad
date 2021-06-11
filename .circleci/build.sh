@@ -18,4 +18,4 @@ if [[ "$CIRCLE_BRANCH" == "dev" ]]; then
   # build the latest
   echo "Deployment, development branch, building :devbuild only."
   docker build -f dev.dockerfile -t "$IMAGE_NAME":devbuild .
-fi
+fi 
