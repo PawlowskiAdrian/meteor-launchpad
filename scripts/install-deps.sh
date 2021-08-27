@@ -22,7 +22,7 @@ if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
 fi
 
 apt-get update
-apt-get install -y --no-install-recommends curl bzip2 bsdtar build-essential python git wget chrpath apt-utils python3
+apt-get install -y --no-install-recommends curl bzip2 libarchive-tools build-essential python git wget chrpath apt-utils python3
 
 # install gosu
 
