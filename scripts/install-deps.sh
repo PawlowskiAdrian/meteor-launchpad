@@ -22,7 +22,7 @@ if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
 fi
 
 apt-get update
-apt-get install -y --no-install-recommends curl bzip2 libarchive-tools build-essential python git wget chrpath apt-utils python3
+apt-get install -y --no-install-recommends curl bzip2 libarchive-tools gpg-agent gpg dirmngr build-essential python git wget chrpath apt-utils python3
 
 # install gosu
 
@@ -33,7 +33,7 @@ wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/downloa
 
 export GNUPGHOME="$(mktemp -d)"
 
-gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
+gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
 gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu
 
 rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc
