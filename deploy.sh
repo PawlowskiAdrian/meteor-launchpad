@@ -3,9 +3,9 @@
 set -e
 
 # Example usage:
-# deploy.sh jshimko/meteor-launchpad v1.0.0
+# deploy.sh pawlowskiadrian/meteor-launchpad v2.4.1
 
-IMAGE_NAME=$1 # jshimko/meteor-launchpad
+IMAGE_NAME=$1 # pawlowskiadrian/meteor-launchpad
 VERSION=$2    # v1.0.0
 
 # create versioned tags

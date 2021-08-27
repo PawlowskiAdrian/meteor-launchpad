@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stable
 LABEL author="Jeremy Shimko <jeremy.shimko@gmail.com>, Adrian Pawlowski <petroniusz2008@gmail.com>"
 
 RUN groupadd -r node && useradd -m -g node node
