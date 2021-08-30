@@ -23,7 +23,7 @@ fi
 
 apt-get update
 apt-get install -y --no-install-recommends curl bzip2 libarchive-tools gpg-agent gpg dirmngr build-essential python git wget chrpath apt-utils python3
-apt-get install -u --no-install-recommends gnupg2
+apt-get install -y --no-install-recommends gnupg2
 
 # install gosu
 
