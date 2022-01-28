@@ -30,9 +30,9 @@ else
   # set the release version in the install script
   sed -i.bak "s/RELEASE=.*/RELEASE=\"$METEOR_VERSION\"/g" $TMP_DIR/install_meteor.sh
 
-  # replace tar command with bsdtar in the install script (bsdtar -xf "$TARBALL_FILE" -C "$INSTALL_TMPDIR")
+  # replace tar command with tar in the install script (tar -xf "$TARBALL_FILE" -C "$INSTALL_TMPDIR")
   # https://github.com/jshimko/meteor-launchpad/issues/39
-  sed -i.bak "s/tar -xzf.*/bsdtar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" $TMP_DIR/install_meteor.sh
+  sed -i.bak "s/tar -xzf.*/tar -xf \"\$TARBALL_FILE\" -C \"\$INSTALL_TMPDIR\"/g" $TMP_DIR/install_meteor.sh
 
   # install
   if [ "$METEOR_VERSION_CUSTOM" ]; then

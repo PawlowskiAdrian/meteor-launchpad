@@ -1,5 +1,6 @@
 FROM debian:stable
 LABEL author="Jeremy Shimko <jeremy.shimko@gmail.com>, Adrian Pawlowski <petroniusz2008@gmail.com>"
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN groupadd -r node && useradd -m -g node node
 
