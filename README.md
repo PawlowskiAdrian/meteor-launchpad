@@ -7,7 +7,7 @@ Add the following to a `Dockerfile` in the root of your app:
 
 Stable versions are tagged:
 ```Dockerfile
-FROM pawlowskiadrian/meteor-launchpad:v2.4.1
+FROM pawlowskiadrian/meteor-launchpad:v2.4.3
 ```
 
 Unstable versions are latest:
@@ -90,7 +90,7 @@ INSTALL_PHANTOMJS=true
 INSTALL_GRAPHICSMAGICK=true
 
 # Sets specific Meteor version to use
-METEOR_VERSION_CUSTOM=2.3.5
+METEOR_VERSION_CUSTOM=2.7.1 # 2.3.5
 ```
 
 **Option #2 - Docker Build Args**

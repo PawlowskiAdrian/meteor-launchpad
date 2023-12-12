@@ -22,8 +22,24 @@ if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
 fi
 
 apt-get update
-apt-get install -y --no-install-recommends curl bzip2 libarchive-tools gpg-agent gpg dirmngr build-essential python git wget chrpath apt-utils python3
+apt-get install -y --no-install-recommends curl bzip2 libarchive-tools gpg-agent gpg dirmngr build-essential git wget chrpath apt-utils python3
 apt-get install -y --no-install-recommends gnupg2
+
+# install python 2
+
+wget http://www.python.org/ftp/python/2.6.9/Python-2.6.9.tgz -P /tmp
+mkdir -p /tmp/Python-2.6.9
+tar -xzf /tmp/Python-2.6.9.tgz -C /tmp
+cd /tmp/Python-2.6.9
+./configure --prefix=/usr --enable-shared
+make
+make install
+cd ~
+
+# configure python alternatives
+
+update-alternatives --install /usr/bin/python python /usr/bin/python2.6 20
+update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
 # install gosu
 
