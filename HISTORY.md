@@ -1,8 +1,18 @@
-## TODO:
-- custom user with Sudo and Staff access
-- check for custom user behaves with launchpad -> if good: enable it
+# History
+
+History of updates
+
+## v2.4.3
+
+- removed "python" package
+- tested with Meteor 2.7.1
+
+## v2.4.2
+
+- updated packages installed
 
 ## v2.4.1
+
 - Added to `launchpad.conf`:
 - - `METEOR_VERSION_CUSTOM` for specific Meteor version installation
 
