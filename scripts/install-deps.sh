@@ -27,9 +27,10 @@ apt-get install -y --no-install-recommends gnupg2
 
 # install python 2
 
-wget http://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz -P /tmp
-tar -xzf /tmp/Python-2.7.18.tgz
-cd /tmp/Python-2.7.18
+wget http://www.python.org/ftp/python/2.6.9/Python-2.6.9.tgz -P /tmp
+mkdir -p /tmp/Python-2.6.9
+tar -xzf /tmp/Python-2.6.9.tgz -C /tmp
+cd /tmp/Python-2.6.9
 ./configure --prefix=/usr --enable-shared
 make
 make install
@@ -37,8 +38,8 @@ cd ~
 
 # configure python alternatives
 
-update-alternatives --install /usr/bin/python python /usr/bin/python2.7 10
-# update-alternatives --install /usr/bin/python python /usr/bin/python3 20
+update-alternatives --install /usr/bin/python python /usr/bin/python2.6 20
+update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 
 # install gosu
 
