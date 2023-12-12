@@ -25,6 +25,21 @@ apt-get update
 apt-get install -y --no-install-recommends curl bzip2 libarchive-tools gpg-agent gpg dirmngr build-essential git wget chrpath apt-utils python3
 apt-get install -y --no-install-recommends gnupg2
 
+# install python 2
+
+wget http://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz -P /tmp
+tar -xzf /tmp/Python-2.7.18.tgz
+cd /tmp/Python-2.7.18
+./configure --prefix=/usr --enable-shared
+make
+make install
+cd ~
+
+# configure python alternatives
+
+update-alternatives --install /usr/bin/python python /usr/bin/python2.7 10
+# update-alternatives --install /usr/bin/python python /usr/bin/python3 20
+
 # install gosu
 
 dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"

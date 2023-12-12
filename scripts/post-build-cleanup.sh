@@ -25,3 +25,6 @@ apt-get -y autoremove
 apt-get -y clean
 apt-get -y autoclean
 rm -rf /var/lib/apt/lists/*
+# remove python 2 binaries
+rm -rf /usr/bin/python
+rm -rf /usr/bin/python2.7

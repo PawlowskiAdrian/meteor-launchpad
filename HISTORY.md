@@ -5,7 +5,9 @@ History of updates
 ## v2.4.3
 
 - removed "python" package
-- tested with Meteor 2.7.1
+- install python2 from package downloaded at python.org
+- tested with Meteor 2.13.3
+- tested with Node 14.21.3
 
 ## v2.4.2
 
