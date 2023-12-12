@@ -20,7 +20,7 @@ rm -rf /tmp/*
 rm -rf /opt/nodejs/bin/npm
 rm -rf /opt/nodejs/lib/node_modules/npm/
 # remove os dependencies
-apt-get purge -y --auto-remove apt-transport-https gpg gpg-agent build-essential dirmngr libarchive-tools bzip2 ca-certificates curl git python python3 chrpath apt-utils gnupg2
+apt-get purge -y --auto-remove apt-transport-https gpg gpg-agent build-essential dirmngr libarchive-tools bzip2 ca-certificates curl git python3 chrpath apt-utils gnupg2
 apt-get -y autoremove
 apt-get -y clean
 apt-get -y autoclean
