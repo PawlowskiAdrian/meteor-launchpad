@@ -1,63 +1,92 @@
 #!/bin/bash
-
 set -e
 
-printf "\n[-] Installing base OS dependencies...\n\n"
-
-# install base dependencies
+printf "\n[-] Installing system dependencies...\n\n"
 
 apt-get update
 
-# ensure we can get an https apt source if redirected
-# https://github.com/jshimko/meteor-launchpad/issues/50
-apt-get install -y apt-transport-https ca-certificates
+# Install basic build tools
+apt-get install -y --no-install-recommends \
+    apt-transport-https \
+    ca-certificates \
+    build-essential \
+    python3 \
+    git \
+    curl \
+    wget \
+    cmake \
+    pkg-config \
+    libssl-dev \
+    zlib1g-dev \
+    libffi-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    libbz2-dev
 
-if [ -f "$APP_SOURCE_DIR"/launchpad.conf ]; then
-  source <(grep APT_GET_INSTALL "$APP_SOURCE_DIR"/launchpad.conf)
+# ============================================
+# Build Python 2.7 from source for node-gyp
+# (Required by old node-sass/node-gyp versions)
+# ============================================
+printf "\n[-] Building Python 2.7 from source...\n\n"
 
-  if [ "$APT_GET_INSTALL" ]; then
-    printf "\n[-] Installing custom apt dependencies...\n\n"
-    apt-get install -y "$APT_GET_INSTALL"
-  fi
+PYTHON2_VERSION="2.7.18"
+cd /tmp
+curl -L "https://www.python.org/ftp/python/${PYTHON2_VERSION}/Python-${PYTHON2_VERSION}.tgz" -o python2.tgz
+tar -xzf python2.tgz
+cd "Python-${PYTHON2_VERSION}"
+
+./configure \
+    --prefix=/usr/local \
+    --enable-optimizations \
+    --enable-shared \
+    --with-ensurepip=install \
+    LDFLAGS="-Wl,-rpath /usr/local/lib"
+
+make -j$(nproc)
+make altinstall
+
+# Update library cache
+ldconfig
+
+# Create symlinks for python2 (required by old node-gyp)
+ln -sf /usr/local/bin/python2.7 /usr/local/bin/python2
+ln -sf /usr/local/bin/python2.7 /usr/bin/python2
+
+# Create python symlink pointing to python3 (for modern tools)
+ln -sf /usr/bin/python3 /usr/bin/python
+
+# Cleanup Python build
+cd /tmp && rm -rf Python-${PYTHON2_VERSION} python2.tgz
+
+printf "\n[-] Python 2.7 installed at: $(python2 --version 2>&1)\n"
+printf "[-] Python 3 available at: $(python3 --version)\n\n"
+
+# ============================================
+# Install libmongocrypt from source
+# ============================================
+printf "\n[-] Installing libmongocrypt from source...\n\n"
+
+MONGOCRYPT_VERSION="1.8.2"
+cd /tmp
+curl -L "https://github.com/mongodb/libmongocrypt/archive/refs/tags/${MONGOCRYPT_VERSION}.tar.gz" -o libmongocrypt.tar.gz
+tar -xzf libmongocrypt.tar.gz
+cd "libmongocrypt-${MONGOCRYPT_VERSION}"
+
+mkdir cmake-build && cd cmake-build
+cmake -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=/usr/local \
+      -DBUILD_VERSION=${MONGOCRYPT_VERSION} \
+      ..
+make -j$(nproc)
+make install
+ldconfig
+
+cd /tmp && rm -rf libmongocrypt*
+
+# Install any additional dependencies from APT_GET_INSTALL
+if [ -n "$APT_GET_INSTALL" ]; then
+    printf "\n[-] Installing additional dependencies: $APT_GET_INSTALL\n\n"
+    apt-get install -y --no-install-recommends $APT_GET_INSTALL
 fi
 
-apt-get update
-apt-get install -y --no-install-recommends curl bzip2 libarchive-tools gpg-agent gpg dirmngr build-essential git wget chrpath apt-utils python3
-apt-get install -y --no-install-recommends gnupg2
-
-# install python 2
-
-wget http://www.python.org/ftp/python/2.6.9/Python-2.6.9.tgz -P /tmp
-mkdir -p /tmp/Python-2.6.9
-tar -xzf /tmp/Python-2.6.9.tgz -C /tmp
-cd /tmp/Python-2.6.9
-./configure --prefix=/usr --enable-shared
-make
-make install
-cd ~
-
-# configure python alternatives
-
-update-alternatives --install /usr/bin/python python /usr/bin/python2.6 20
-update-alternatives --install /usr/bin/python python /usr/bin/python3 10
-
-# install gosu
-
-dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"
-
-wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"
-wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"
-
-export GNUPGHOME="$(mktemp -d)"
-
-gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
-gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu
-
-# "$GNUPGHOME"
-rm -r /usr/local/bin/gosu.asc
-
-chmod +x /usr/local/bin/gosu
-
-gosu nobody true
-
-apt-get purge -y --auto-remove wget
+printf "\n[-] System dependencies installed!\n\n"

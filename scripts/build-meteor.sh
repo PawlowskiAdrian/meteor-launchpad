@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #
 # builds a production meteor bundle directory
 #
@@ -18,26 +17,23 @@ fi
 # earlier versions of Meteor with --unsafe-perm or --allow-superuser
 # https://github.com/meteor/meteor/issues/7959
 export METEOR_ALLOW_SUPERUSER=true
-
 cd "$APP_SOURCE_DIR"
 
-# Install app deps
-printf "\n[-] Running 'meteor npm install' in app directory...\n\n"
-meteor npm install
-
-# build the bundle
+# Build the bundle
 printf "\n[-] Building Meteor application...\n\n"
 mkdir -p "$APP_BUNDLE_DIR"
 meteor build --directory "$APP_BUNDLE_DIR" --server-only
 
-# run npm install in bundle
+# Production npm install in bundle
 printf "\n[-] Running meteor npm install in the server bundle...\n\n"
 cd "$APP_BUNDLE_DIR"/bundle/programs/server/
 
-## continue with installation
 meteor npm install --production --verbose
 
-# put the entrypoint script in WORKDIR
+# Put the entrypoint script in WORKDIR
 mv "$BUILD_SCRIPTS_DIR"/entrypoint.sh "$APP_BUNDLE_DIR"/bundle/entrypoint.sh
 
+# Fix permissions
 chown -R node:node "$APP_BUNDLE_DIR"
+
+printf "\n[-] Meteor build complete!\n\n"
