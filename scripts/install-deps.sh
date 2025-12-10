@@ -24,6 +24,22 @@ apt-get install -y --no-install-recommends \
     libbz2-dev
 
 # ============================================
+# Install gosu for stepping down from root
+# ============================================
+printf "\n[-] Installing gosu...\n\n"
+
+GOSU_VERSION="${GOSU_VERSION:-1.17}"
+ARCH="$(dpkg --print-architecture)"
+
+curl -fsSL "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${ARCH}" -o /usr/local/bin/gosu
+chmod +x /usr/local/bin/gosu
+
+# Verify gosu is installed (ignore exit code, just check it runs)
+gosu --version || true
+
+printf "\n[-] gosu installed successfully!\n\n"
+
+# ============================================
 # Build Python 2.7 from source for node-gyp
 # (Required by old node-sass/node-gyp versions)
 # ============================================
